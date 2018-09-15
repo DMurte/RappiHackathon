@@ -1,10 +1,7 @@
 <i class="fa"></i>
 <div style="height: 600px">
   <x-map #xmap [Options]="_options" [Box]="_box">
-    <x-map-marker [Latitude]="2" [Longitude]="32" >
-      
-    </x-map-marker>
-    <!-- <x-map-polygon [Paths]="_path" [Title]="'My Polygon'" (Click)="_click($event)"></x-map-polygon> -->
+    <x-map-polygon [Paths]="_path" [Title]="'My Polygon'" (Click)="_click($event)"></x-map-polygon>
   </x-map>
 </div>
 <div class="description">
@@ -15,3 +12,4 @@
   more info.
 </div>
 <div class="ss">aklsjdklajsdkljasdklj</div>
+<button (click)="getJSON()" >Click To Get JSON</button>

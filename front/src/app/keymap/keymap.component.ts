@@ -1,5 +1,6 @@
 import { Component, NgModule, VERSION } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 import {
   MapModule, MapAPILoader, MarkerTypeId, IMapOptions, IBox, IMarkerIconInfo, WindowRef,
   DocumentRef, MapServiceFactory,
@@ -16,30 +17,40 @@ let PathData: Array<any> = null;
 })
 export class KeymapComponent {
   _options: IMapOptions = {
-    disableBirdseye: true,
-    disableStreetside: false,
-    navigationBarMode: 4,
-    zoom: 1
-    
-  };
+    disableBirdseye: false,
+    disableUserInput:false,
+    zoom:1,
+    navigationBarMode:3 
+   };
 
   _box: IBox = {
-    maxLatitude: 30,
+    maxLatitude: 35,
     maxLongitude: -90,
     minLatitude: 24,
-    minLongitude: -95
+    minLongitude: -95,
+    
+    
   };
   private _path: Array<ILatLong> = new Array<ILatLong>()
+  
 
-  constructor() {
+  constructor(protected http: HttpClient ) {
     PathData.forEach(element => {
       this._path.push({ latitude: element.latitude, longitude: element.longitude });
+    });
+  }
+
+  getJSON( ){
+    this.http.get('http://461da4cb.ngrok.io/api/orders').subscribe(data=>{
+      console.log(data.toString);
     });
   }
 
   _click() {
     console.log("hello world...");
   }
+
+ 
 }
 
 PathData = [

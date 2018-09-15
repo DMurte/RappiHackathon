@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
+import { HttpClientModule } from '@angular/common/http';
 import {
   MapModule, MapAPILoader, WindowRef,  DocumentRef, 
   BingMapAPILoaderConfig, BingMapAPILoader,
@@ -15,7 +16,7 @@ const useBing = true;
   imports: [
     BrowserModule,
     useBing ? MapModule.forRootBing() : MapModule.forRootGoogle(),
-
+    HttpClientModule
   ],
   declarations: [KeymapComponent, AppComponent],
   providers: [
