@@ -21,6 +21,19 @@ controller.getStorekeepers = async ((req, res) => {
     }
 });
 
+controller.getOrders = async ((req, res) => {
+    try {
+        let response = await (queries.getOrders());
+        response = responses.successWithData(response);
+        res.status(200).send(response);
+
+    } catch(error) {
+        error = responses.error(error);
+        res.status(500).send(error);
+        
+    }
+});
+
 
 
 module.exports = controller;
