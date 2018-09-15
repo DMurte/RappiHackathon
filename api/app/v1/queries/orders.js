@@ -19,8 +19,7 @@ request.getOrders = async ((data) => {
             const db = client.db('orders');
 
             db.collection('orders').find({}).toArray( (err, order) => {
-            order.forEach(function(e) { ordersArray.push(e);
-            });
+            order.forEach( (e) => ordersArray.push(e) );
 
             client.close();
             resolve(ordersArray)
@@ -32,6 +31,20 @@ request.getOrders = async ((data) => {
 
 request.getOrdersByType = async ((data) => {
     return new Promise( (resolve , reject ) => {
+        let ordersArray = [];
+
+        MongoClient.connect(url,{ useNewUrlParser: true }, (err, client) => {
+            assert.equal(null, err);
+            const db = client.db('orders');
+
+            db.collection('orders').find({ type : data.type }).toArray( (err, order) => {
+            order.forEach( (e) => ordersArray.push(e) );
+
+            client.close();
+            resolve(ordersArray)
+
+            });
+        });
      
     });
 });

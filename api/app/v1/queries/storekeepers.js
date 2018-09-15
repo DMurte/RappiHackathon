@@ -22,9 +22,8 @@ request.getStorekeepersByVehicle = async ((data) => {
         const storekeepers = await ( Model.storekeepers.findAll()); 
 
         storekeepers.forEach(e => {
-            if(e.toolkit.vehicle == data.type){
-                filteredStorekeepers.push(e);
-            }
+            if(e.toolkit.vehicle == data.type) filteredStorekeepers.push(e);
+            
         });
 
         resolve(filteredStorekeepers);

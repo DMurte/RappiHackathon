@@ -23,7 +23,7 @@ controller.getOrders = async ((req, res) => {
 
 controller.getOrdersByType = async ((req, res) => {
     try {
-        let response = await (queries.getOrdersByType(req.parms));
+        let response = await (queries.getOrdersByType(req.params));
         response = responses.successWithData(response);
         res.status(200).send(response);
 
