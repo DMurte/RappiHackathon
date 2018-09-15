@@ -2,12 +2,27 @@ require('express-group-routes');
 const express = require('express');
 const router = express.Router();
 
-const mainController = require('./controller/main');
+const storekeepersController = require('./controller/storekeepers');
+const ordersController = require('./controller/orders');
 
 
 
-router.get("/storekeepers", mainController.getStorekeepers);
-router.get("/orders", mainController.getOrders);
+router.group('/storekeepers',  (router) => {
+    router.get("/", storekeepersController.getStorekeepers);
+    router.get("/vehicle/:type", storekeepersController.getStorekeepersByVehicle);
+
+
+});
+
+
+router.group('/orders',  (router) => {
+    router.get("/", ordersController.getOrders);
+    router.get("/type/:type", ordersController.getOrdersByType);
+
+
+});
+
+
 
     
 

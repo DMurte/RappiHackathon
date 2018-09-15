@@ -4,25 +4,12 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const MongoClient = require('mongodb').MongoClient
-// const mongo = require('mongodb');
 const assert = require('assert');
 const url = 'mongodb://hackathonmongo:hackathon2018rappimongodb@mongo-hackathon.eastus2.cloudapp.azure.com:27017/orders';
-
-
-
 const Model = require('../models/storekeepers');
 
 
 var request= {};
-
-request.getStorekeepers = async ((data) => {
-    return new Promise( (resolve , reject ) => {
-        const storekeepers = await ( Model.storekeepers.findAll());        
-        resolve(storekeepers);
-
-    });
-});
-
 
 request.getOrders = async ((data) => {
     return new Promise( (resolve , reject ) => {
@@ -40,10 +27,16 @@ request.getOrders = async ((data) => {
 
             });
         });
-
-
     });
 });
+
+request.getOrdersByType = async ((data) => {
+    return new Promise( (resolve , reject ) => {
+     
+    });
+});
+
+
 
 
 

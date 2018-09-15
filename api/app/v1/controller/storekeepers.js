@@ -3,7 +3,7 @@ const async = require('es5-async-await/async');
 const await = require('es5-async-await/await');
 
 const responses = require('../tools/responses');
-const queries = require('../queries/main');
+const queries = require('../queries/storekeepers');
 
 
 const controller = {};
@@ -21,9 +21,9 @@ controller.getStorekeepers = async ((req, res) => {
     }
 });
 
-controller.getOrders = async ((req, res) => {
+controller.getStorekeepersByVehicle = async ((req, res) => {
     try {
-        let response = await (queries.getOrders());
+        let response = await (queries.getStorekeepersByVehicle(req.params));
         response = responses.successWithData(response);
         res.status(200).send(response);
 
