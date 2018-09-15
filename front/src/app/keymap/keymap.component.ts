@@ -16,10 +16,11 @@ let PathData: Array<any> = null;
 })
 export class KeymapComponent {
   _options: IMapOptions = {
-    disableBirdseye: false,
+    disableBirdseye: true,
     disableStreetside: false,
-    navigationBarMode: 1,
-    zoom: 6
+    navigationBarMode: 4,
+    zoom: 1
+    
   };
 
   _box: IBox = {

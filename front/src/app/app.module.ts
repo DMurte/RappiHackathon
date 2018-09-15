@@ -1,29 +1,31 @@
-import { Component, NgModule, VERSION } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import {
-  MapModule, MapAPILoader, MarkerTypeId, IMapOptions, IBox, IMarkerIconInfo, WindowRef,
-  DocumentRef, MapServiceFactory,
+  MapModule, MapAPILoader, WindowRef,  DocumentRef, 
   BingMapAPILoaderConfig, BingMapAPILoader,
   GoogleMapAPILoader, GoogleMapAPILoaderConfig
 } from 'angular-maps';
 import { KeymapComponent } from './keymap/keymap.component';
+import { AppComponent } from './app.component';
 
-const useBing = false;
+
+const useBing = true;
 
 @NgModule({
   imports: [
     BrowserModule,
-    useBing ? MapModule.forRootBing() : MapModule.forRootGoogle()
+    useBing ? MapModule.forRootBing() : MapModule.forRootGoogle(),
+
   ],
-  declarations: [KeymapComponent],
+  declarations: [KeymapComponent, AppComponent],
   providers: [
     {
       provide: MapAPILoader, deps: [], useFactory: useBing ? BingMapServiceProviderFactory : GoogleMapServiceProviderFactory
     }
   ],
-  bootstrap: [KeymapComponent]
+  bootstrap: [AppComponent]
 })
-export class KeymapModule { }
+export class AppModule { }
 
 export function BingMapServiceProviderFactory() {
   let bc: BingMapAPILoaderConfig = new BingMapAPILoaderConfig();
