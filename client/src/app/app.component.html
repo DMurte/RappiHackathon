@@ -30,6 +30,7 @@
 <div class="content">
     <agm-map [latitude]="4.70551625403494" [longitude]="-74.03951118339762" [zoom]="18" (mapClick)="coors($event)" (boundsChange)="getMarkers($event)">
         <agm-marker *ngFor="let e of markers;" [iconUrl]="{  url: './assets/images/'+e.toolkit.vehicle+'.png' }" [latitude]="+e.lat" [longitude]="+e.lng"></agm-marker>
+        <!-- <agm-polygon [fillColor]="red" [fillOpacity]="0.5" [paths]="zone.paths" [strokeColor]="blue" [strokeOpacity]="0.6"  [visible]="true" [zIndex]="1"></agm-polygon> -->
     </agm-map>
 </div>
 

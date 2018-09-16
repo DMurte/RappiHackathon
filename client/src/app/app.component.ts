@@ -7,7 +7,7 @@ import { OrderService } from './services/orders.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [storeKeeperService, OrderService ]
+  providers: [ storeKeeperService, OrderService ]
 })
 
 export class AppComponent {
@@ -40,15 +40,14 @@ export class AppComponent {
           break;
       case '2': this.orderTypeSelect = true, this.mainSelect = false, this.resetButtom = true;
           break;
-      case '3': this.ordersSaturation();
+      case '3': this.ordersSaturation(this.coordinates);
           break;
-      case '4': this.vehiclesSaturation();
+      case '4': this.vehiclesSaturation(this.coordinates);
           break;
       default: console.log('err',e)
     }
+
   }
-
-
 
   async getMarkers(coordinates){
     if(!this.resetButtom){
@@ -105,14 +104,13 @@ export class AppComponent {
 
   }
 
-  async ordersSaturation(){
-    console.log('ordersSaturation');
+  async ordersSaturation(coordinates){
+    const saturation = await this.OrderService.ordersSaturation(coordinates);
 
   }
 
-  async vehiclesSaturation(){
-    console.log('vehiclesSaturation');
-
+  async vehiclesSaturation(coordinates){
+    const saturation = await this.storeKeeperService.vehicleSaturation(coordinates);
 
   }
 

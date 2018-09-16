@@ -21,4 +21,11 @@ export class storeKeeperService {
 
   }
 
+  async vehicleSaturation(coordinates) {
+    const url = `${this.endPoint}vehicle/`
+    return this.http.post<any>(url, coordinates).toPromise();
+
+  }
+
+
 }

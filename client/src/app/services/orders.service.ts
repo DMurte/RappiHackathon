@@ -19,6 +19,14 @@ export class OrderService {
     return this.http.post<any>(url, params).toPromise();
 
   }
+
+  async ordersSaturation(coordinates) {
+    const url = `${this.endPoint}saturation/`
+    return this.http.post<any>(url, coordinates).toPromise();
+
+  }
+
+
 }
 
 
