@@ -23,7 +23,7 @@ controller.getStorekeepers = async ((req, res) => {
 
 controller.getStorekeepersByVehicle = async ((req, res) => {
     try {
-        let response = await (queries.getStorekeepersByVehicle(req.params));
+        let response = await (queries.getStorekeepersByVehicle(req.body));
         response = responses.successWithData(response);
         res.status(200).send(response);
 

@@ -17,50 +17,61 @@ request.getStorekeepers = async ((data) => {
 
         const storekeepers = await ( Model.storekeepers.findAll({ 
             where : {
-                lat : {
-                    [Op.lte]: north,
-                    [Op.gte]: south
-                },
-                lng : {
-                    [Op.between]: [east, west ]
-                }
+                    lat : {
+                        [Op.lte]: north,
+                        [Op.gte]: south
+                    },
+                    lng : {
+                        [Op.between]: [ west, east ]
 
+                    }
                 },
                 attributes : ['lat', 'lng', 'toolkit']
             }
         ));    
 
-        console.log(typeof west, typeof east, typeof north, typeof south) 
-        console.log(typeof data.west, typeof data.east, typeof data.north, typeof data.south) 
-
-        resolve(storekeepers);
+        resolve(storekeepers)
 
 
     });
 });
 
-// where : {
-//     lat : {
-//         [Op.lte]: data.north,
-//         [Op.gte]: data.south
-//     },
-//     lng : {
-//         [Op.between]: [ data.west, data.east]
-//     }
 
-//     },
 
 request.getStorekeepersByVehicle = async ((data) => {
     return new Promise( (resolve , reject ) => {
         let filteredStorekeepers = [];
-        const storekeepers = await ( Model.storekeepers.findAll()); 
+        const storekeepers = await ( Model.storekeepers.findAll({ 
+                where : {
+                        lat : {
+                            [Op.lte]: data.coordinates.north,
+                            [Op.gte]: data.coordinates.south
+                        },
+                        lng : {
+                            [Op.between]: [ data.coordinates.west, data.coordinates.east ]
 
-        storekeepers.forEach(e => {
-            if(e.toolkit.vehicle == data.type) filteredStorekeepers.push(e);
+                        }
+
+                    },
+                attributes : ['lat', 'lng', 'toolkit']
+
+            })
+        ); 
+
+        if(data.type != 0){
+            storekeepers.forEach(e => {
+                if(e.toolkit.vehicle == data.type) filteredStorekeepers.push(e);
+                
+            });
+
+        }else{
+            filteredStorekeepers = storekeepers
             
-        });
+        }
+       
 
         resolve(filteredStorekeepers);
+
 
     });
 });

@@ -9,7 +9,7 @@ const ordersController = require('./controller/orders');
 
 router.group('/storekeepers',  (router) => {
     router.post("/", storekeepersController.getStorekeepers);
-    router.get("/vehicle/:type", storekeepersController.getStorekeepersByVehicle);
+    router.post("/vehicle/", storekeepersController.getStorekeepersByVehicle);
 
 
 });
