@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {AgmCoreModule } from '@agm/core';
+import { HttpClientModule } from '@angular/common/http';
+
 
 import { AppComponent } from './app.component';
-import {AgmCoreModule } from '@agm/core'
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 
@@ -17,7 +18,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     BrowserModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey:'AIzaSyA00lwQQgWZXTKZ_UV4V9o3yT1XRdnEAlY'
+      apiKey: 'AIzaSyB6o5OyV-vgXK4dj1M0KTqYhpkHKc9D5f4'
     })
   ],
   providers: [],

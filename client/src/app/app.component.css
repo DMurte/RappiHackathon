@@ -1,3 +1,36 @@
 agm-map {
-  height: 300px;
+  height: 700px;
+  width: 1150px;
+
+
 }
+
+
+.content {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+.browser-default {
+  width: 650px;
+  left: 50%;
+  top: 6%;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+.reset-btn{
+  left: 79%;
+  top: 6%;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+

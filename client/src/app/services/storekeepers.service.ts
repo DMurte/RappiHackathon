@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 
 @Injectable()
-export class StoreKeepersService {
+export class storeKeeperService {
   endPoint = 'http://localhost:3678/api/storekeepers/'
 
   constructor( private http: HttpClient ) { }
 
 
-  async getStoreKeepers() {
+  async getStoreKeepers(coordinates) {
     const url = `${this.endPoint}`
-    return this.http.get<any>(url).toPromise();
+    return this.http.post<any>(url, coordinates).toPromise();
 
   }
 

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 @Injectable()
-export class OrdersService {
+export class OrderService {
   endPoint = 'http://localhost:3678/api/orders/'
 
   constructor( private http: HttpClient ) { }

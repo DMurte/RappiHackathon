@@ -1,3 +1,37 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
+
+<select *ngIf="mainSelect " class="browser-default" (change)="showFilter($event.target.value)">
+    <option value="" disabled >Mostrar por</option>
+    <option value="1">Tipo de vehiculo de Rappitenderos</option>
+    <option value="2">Tipo de Ordenes</option>
+    <option value="3">Saturacion por tipo de ordenes</option>
+    <option value="4">Saturacion por falta de vehiculos</option>
+</select>
+
+<select *ngIf="vehicleSelect" class="browser-default" (change)="getStorekeepersByVehicle($event.target.value)">
+    <option value="" disabled selected> <table>Tipo de vehiculo</table></option>
+    <option value="1">Bicicleta</option>
+    <option value="2">Moto</option>
+    <option value="0">Sin vehiculo</option>
+</select>
+
+<select *ngIf="orderTypeSelect" class="browser-default" (change)="getOrdersByType($event.target.value)">
+    <option value="" disabled selected> <table>Tipo de orden</table></option>
+    <option value="restaurant">Restaurante</option>
+    <option value="courier">Correo</option>
+    <option value="express">Express</option>
+    <option value="market">Supermercado</option>
+    <option value="whim">Antojo</option>
+</select>
+
+<a class="waves-effect waves-light btn reset-btn"  *ngIf="resetButtom" (click)="resetFilter()">Resetear</a>
+
+<div class="content">
+    <agm-map [latitude] = "latitude" [longitude] = "longitude" [zoom] = "15" (mapClick) = "coors($event)" (boundsChange)="getStorekeepers($event)">
+        <agm-marker [iconUrl] = "{  url: './assets/images/'+e.toolkit.vehicle+'.png' }" [latitude]="+e.lat" [longitude] ="+e.lng" *ngFor="let e of store_keepers;"></agm-marker>
+    </agm-map>
+</div>
+
+
+
+
+
