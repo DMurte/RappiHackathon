@@ -1,6 +1,9 @@
 const async = require('es5-async-await/async');
 const await = require('es5-async-await/await');
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
+const Model = require('../models/storekeepers');
 
 const MongoClient = require('mongodb').MongoClient
 const assert = require('assert');
@@ -9,9 +12,22 @@ const url = 'mongodb://hackathonmongo:hackathon2018rappimongodb@mongo-hackathon.
 
 var request= {};
 
-request.getOrders = async ((data) => {
+request.ordersSaturation = async ((data) => {
     return new Promise( (resolve , reject ) => {
-        let ordersArray = [];
+        const ordersArray = [];
+        const storekeepers = await ( Model.storekeepers.findAll({ 
+            where : {
+                    lat : {
+                        [Op.lte]: data.north,
+                        [Op.gte]: data.south
+                    },
+                    lng : {
+                        [Op.between]: [ data.west, data.east ]
+
+                    }
+                }
+            })); 
+
         MongoClient.connect(url,{ useNewUrlParser: true }, (err, client) => {
             assert.equal(null, err);
             const db = client.db('orders');
@@ -28,44 +44,23 @@ request.getOrders = async ((data) => {
             }).toArray( (err, order) => {
                 order.forEach( (e) => ordersArray.push(e) );
                 client.close();
-                resolve(ordersArray)
-
             });
-
         });
+
+        resolve('Ok');
 
     });
 });
 
-request.getOrdersByType = async ((data) => {
+
+request.vehicleSaturation = async ((data) => {
     return new Promise( (resolve , reject ) => {
-        let ordersArray = [];
-
-        MongoClient.connect(url,{ useNewUrlParser: true }, (err, client) => {
-            assert.equal(null, err);
-            const db = client.db('orders');
-
-            db.collection('orders').find({
-                    type : data.type,
-                    lat : { 
-                        $gte: data.coordinates.south, 
-                        $lte: data.coordinates.north 
-                    },
-                    lng : {
-                        $gte: data.coordinates.west, 
-                        $lte: data.coordinates.east 
-                    } 
-                }).toArray( (err, order) => {
-                order.forEach( (e) => ordersArray.push(e) );
-                client.close();
-
-                resolve(ordersArray)
-
-            });
-        });
+        resolve('vehicleSaturation')
 
     });
 });
+
+
 
 
 

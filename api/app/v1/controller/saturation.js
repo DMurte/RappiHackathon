@@ -2,13 +2,13 @@ const async = require('es5-async-await/async');
 const await = require('es5-async-await/await');
 
 const responses = require('../tools/responses');
-const queries = require('../queries/storekeepers');
+const queries = require('../queries/orders');
 
 const controller = {};
 
-controller.getStorekeepers = async ((req, res) => {
+controller.ordersSaturation = async ((req, res) => {
     try {
-        let response = await (queries.getStorekeepers(req.body));
+        let response = await (queries.ordersSaturation(req.body));
         response = responses.successWithData(response);
         res.status(200).send(response);
 
@@ -19,9 +19,9 @@ controller.getStorekeepers = async ((req, res) => {
     }
 });
 
-controller.getStorekeepersByVehicle = async ((req, res) => {
+controller.vehicleSaturation = async ((req, res) => {
     try {
-        let response = await (queries.getStorekeepersByVehicle(req.body));
+        let response = await (queries.vehicleSaturation(req.body));
         response = responses.successWithData(response);
         res.status(200).send(response);
 
@@ -31,7 +31,6 @@ controller.getStorekeepersByVehicle = async ((req, res) => {
         
     }
 });
-
 
 
 module.exports = controller;

@@ -1,16 +1,14 @@
-const validate = require('validate.js');
 const async = require('es5-async-await/async');
 const await = require('es5-async-await/await');
 
 const responses = require('../tools/responses');
 const queries = require('../queries/orders');
 
-
 const controller = {};
 
 controller.getOrders = async ((req, res) => {
     try {
-        let response = await (queries.getOrders());
+        let response = await (queries.getOrders(req.body));
         response = responses.successWithData(response);
         res.status(200).send(response);
 
