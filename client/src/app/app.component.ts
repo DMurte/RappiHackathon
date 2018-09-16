@@ -13,13 +13,11 @@ import { OrderService } from './services/orders.service';
 export class AppComponent {
   store_keepers = [];
   orders = [];
-  latitude = 4.70551625403494;
-  longitude = -74.03951118339762;
   mainSelect = true;
   vehicleSelect = false;
   orderTypeSelect = false;
   resetButtom = false;
-
+  coordinates = { north :'', south :'', east :'', west :'' }
   url =   {  url: './assets/images/1.png' }
 
 
@@ -33,16 +31,6 @@ export class AppComponent {
     ) { }
 
   ngOnInit() {
-    const coordinates =  {
-      north : 4.720485837123973,
-      south : 4.690546349010519,
-      east : -74.06423042167887,
-      west : -74.01487777580485
-
-    }
-
-    this.getStorekeepers(coordinates);
-
 
   }
 
@@ -70,15 +58,17 @@ export class AppComponent {
 
   coors(coors){
     console.log(coors)
-  }
 
-  bounds(bounds){
-    console.log(bounds)
   }
 
   async getStorekeepers(coordinates){
     const store_keepers = await this.storeKeeperService.getStoreKeepers(coordinates);
-    this.store_keepers = store_keepers.data
+    this.store_keepers = store_keepers.data;
+
+    this.coordinates.north = coordinates.f.f
+    this.coordinates.south = coordinates.f.b
+    this.coordinates.east = coordinates.b.f
+    this.coordinates.west = coordinates.b.b
 
 
   }
@@ -89,18 +79,12 @@ export class AppComponent {
   }
 
   async getStorekeepersByVehicle(type){
-    console.log(type)
-    // this.store_keepers = await this.storeKeeperService.getStorekeepersByVehicle(type);
+     await this.storeKeeperService.getStorekeepersByVehicle({type, coordinates : this.coordinates});
 
   }
 
   async getOrdersByType(type){
-    console.log(type)
-    // this.orders = await this.OrderService.getOrdersByType(type);
-
-  }
-
-  async getByGeoHash(hash){
+    this.orders = await this.OrderService.getOrdersByType(type);
 
   }
 

@@ -15,9 +15,9 @@ export class storeKeeperService {
 
   }
 
-  async getStorekeepersByVehicle(type) {
-    const url = `${this.endPoint}vehicle/${type}`
-    return this.http.get<any>(url).toPromise();
+  async getStorekeepersByVehicle(params) {
+    const url = `${this.endPoint}vehicle/`
+    return this.http.post<any>(url, params).toPromise();
 
   }
 
