@@ -11,14 +11,17 @@ import { OrderService } from './services/orders.service';
   providers: [storeKeeperService, OrderService ]
 })
 export class AppComponent {
-  store_keepers = [];
+  markers = [];
   orders = [];
   mainSelect = true;
+  loading = false
+  resetButtom = false;
   vehicleSelect = false;
   orderTypeSelect = false;
-  resetButtom = false;
+  vehicleType = ''
+  ordersType = ''
+  url = {  url: './assets/images/1.png' }
   coordinates = { north :'', south :'', east :'', west :'' }
-  url =   {  url: './assets/images/1.png' }
 
 
 
@@ -48,44 +51,66 @@ export class AppComponent {
     }
   }
 
-  resetFilter(){
-    this.resetButtom = false;
-    this.mainSelect = true;
-    this.orderTypeSelect = false;
-    this.vehicleSelect = false;
 
-  }
 
   coors(coors){
     console.log(coors)
 
   }
 
-  async getStorekeepers(coordinates){
-    const store_keepers = await this.storeKeeperService.getStoreKeepers(coordinates);
-    this.store_keepers = store_keepers.data;
+  async getMarkers(coordinates){
+    if(!this.resetButtom){
+      const store_keepers = await this.storeKeeperService.getStoreKeepers(coordinates);
+      this.markers = store_keepers.data;
+
+    }else{
+      if(this.ordersType == ''){
+        const store_keepers = await this.storeKeeperService.getStorekeepersByVehicle({type : this.vehicleType, coordinates : this.coordinates})
+        this.markers = store_keepers.data;
+
+      }else{
+        const orders = await this.OrderService.getOrdersByType({type : this.ordersType, coordinates : this.coordinates});
+        this.markers = orders.data;
+
+      }
+    }
 
     this.coordinates.north = coordinates.f.f
     this.coordinates.south = coordinates.f.b
     this.coordinates.east = coordinates.b.f
     this.coordinates.west = coordinates.b.b
 
+  }
+
+  resetFilter(){
+    this.resetButtom = false;
+    this.mainSelect = true;
+    this.orderTypeSelect = false;
+    this.vehicleSelect = false;
+    this.vehicleType = '';
+    this.ordersType = '';
+
 
   }
 
   async getOrders(){
-    this.orders = await this.OrderService.getOrders();
+    const orders = await this.OrderService.getOrders();
+    this.orders = orders.data
 
   }
 
   async getStorekeepersByVehicle(type){
-     await this.storeKeeperService.getStorekeepersByVehicle({type, coordinates : this.coordinates});
+    this.markers = [];
+    this.vehicleType = type
+    const store_keepers = await this.storeKeeperService.getStorekeepersByVehicle({type, coordinates : this.coordinates});
+    this.markers = store_keepers.data;
 
   }
 
   async getOrdersByType(type){
-    this.orders = await this.OrderService.getOrdersByType(type);
-
+    const orders = await this.OrderService.getOrdersByType({type, coordinates : this.coordinates});
+    this.markers = orders.data
+    this.ordersType = type;
   }
 
 }

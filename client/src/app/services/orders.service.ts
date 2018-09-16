@@ -15,9 +15,9 @@ export class OrderService {
 
   }
 
-  async getOrdersByType(type) {
-    const url = `${this.endPoint}type/${type}`
-    return this.http.get<any>(url).toPromise();
+  async getOrdersByType(params) {
+    const url = `${this.endPoint}type/`
+    return this.http.post<any>(url, params).toPromise();
 
   }
 

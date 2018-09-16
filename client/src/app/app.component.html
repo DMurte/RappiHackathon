@@ -27,8 +27,8 @@
 <a class="waves-effect waves-light btn reset-btn"  *ngIf="resetButtom" (click)="resetFilter()">Resetear</a>
 
 <div class="content">
-    <agm-map [latitude] = "4.70551625403494" [longitude] = "-74.03951118339762" [zoom] = "18" (mapClick) = "coors($event)" (boundsChange)="getStorekeepers($event)">
-        <agm-marker [iconUrl] = "{  url: './assets/images/'+e.toolkit.vehicle+'.png' }" [latitude]="+e.lat" [longitude] ="+e.lng" *ngFor="let e of store_keepers;"></agm-marker>
+    <agm-map *ngIf="!loading"  [latitude] = "4.70551625403494" [longitude] = "-74.03951118339762" [zoom] = "18" (mapClick) = "coors($event)" (boundsChange)="getMarkers($event)">
+        <agm-marker [iconUrl] = "{  url: './assets/images/'+e.toolkit.vehicle+'.png' }" [latitude]="+e.lat" [longitude] ="+e.lng" *ngFor="let e of markers;"></agm-marker>
     </agm-map>
 </div>
 
