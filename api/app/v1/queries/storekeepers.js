@@ -10,11 +10,45 @@ var request= {};
 
 request.getStorekeepers = async ((data) => {
     return new Promise( (resolve , reject ) => {
-        const storekeepers = await ( Model.storekeepers.findAll());        
+        const north = data.north
+        const south = data.south
+        const east = data.east
+        const west = data.west
+
+        const storekeepers = await ( Model.storekeepers.findAll({ 
+            where : {
+                lat : {
+                    [Op.lte]: north,
+                    [Op.gte]: south
+                },
+                lng : {
+                    [Op.between]: [east, west ]
+                }
+
+                },
+                attributes : ['lat', 'lng', 'toolkit']
+            }
+        ));    
+
+        console.log(typeof west, typeof east, typeof north, typeof south) 
+        console.log(typeof data.west, typeof data.east, typeof data.north, typeof data.south) 
+
         resolve(storekeepers);
+
 
     });
 });
+
+// where : {
+//     lat : {
+//         [Op.lte]: data.north,
+//         [Op.gte]: data.south
+//     },
+//     lng : {
+//         [Op.between]: [ data.west, data.east]
+//     }
+
+//     },
 
 request.getStorekeepersByVehicle = async ((data) => {
     return new Promise( (resolve , reject ) => {

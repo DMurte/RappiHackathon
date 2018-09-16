@@ -10,7 +10,7 @@ const controller = {};
 
 controller.getStorekeepers = async ((req, res) => {
     try {
-        let response = await (queries.getStorekeepers());
+        let response = await (queries.getStorekeepers(req.body));
         response = responses.successWithData(response);
         res.status(200).send(response);
 
