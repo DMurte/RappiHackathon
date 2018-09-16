@@ -17,7 +17,7 @@ router.group('/storekeepers',  (router) => {
 
 router.group('/orders',  (router) => {
     router.get("/", ordersController.getOrders);
-    router.get("/type/:type", ordersController.getOrdersByType);
+    router.post("/type", ordersController.getOrdersByType);
 
 
 });

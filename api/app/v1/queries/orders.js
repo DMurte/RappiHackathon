@@ -36,13 +36,24 @@ request.getOrdersByType = async ((data) => {
             assert.equal(null, err);
             const db = client.db('orders');
 
-            db.collection('orders').find({ type : data.type }).toArray( (err, order) => {
+            db.collection('orders').find({
+                    type : data.type,
+                    lat : { 
+                        $gte: data.coordinates.south, 
+                        $lte: data.coordinates.north 
+                    },
+                    lng : {
+                        $gte: data.coordinates.west, 
+                        $lte: data.coordinates.east 
+                    } 
+                }).toArray( (err, order) => {
                 order.forEach( (e) => ordersArray.push(e) );
                 client.close();
                 resolve(ordersArray)
 
             });
         });
+
     });
 });
 
