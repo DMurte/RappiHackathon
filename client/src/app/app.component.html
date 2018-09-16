@@ -1,6 +1,7 @@
 
+
 <select *ngIf="mainSelect " class="browser-default" (change)="showFilter($event.target.value)">
-    <option value="" disabled >Mostrar por</option>
+    <option value="0" disabled >Mostrar por</option>
     <option value="1">Tipo de vehiculo de Rappitenderos</option>
     <option value="2">Tipo de Ordenes</option>
     <option value="3">Saturacion por tipo de ordenes</option>
@@ -8,27 +9,27 @@
 </select>
 
 <select *ngIf="vehicleSelect" class="browser-default" (change)="getStorekeepersByVehicle($event.target.value)">
-    <option value="" disabled selected> <table>Tipo de vehiculo</table></option>
+    <option value="0" disabled selected> <table>Tipo de vehiculo</table></option>
     <option value="1">Bicicleta</option>
     <option value="2">Moto</option>
     <option value="0">Cualquiera</option>
 </select>
 
 <select *ngIf="orderTypeSelect" class="browser-default" (change)="getOrdersByType($event.target.value)">
-    <option value="" disabled selected> <table>Tipo de orden</table></option>
-    <option value="restaurant">Restaurante</option>
+    <option value="0" disabled selected> <table>Tipo de orden</table></option>
     <option value="courier">RappiFavor</option>
+    <option value="restaurant">Restaurante</option>
     <option value="ultraservicio">RappiCash</option>
-    <option value="express">Express</option>
     <option value="market">Supermercado</option>
+    <option value="express">Express</option>
     <option value="whim">Antojo</option>
 </select>
 
 <a class="waves-effect waves-light btn reset-btn"  *ngIf="resetButtom" (click)="resetFilter()">Resetear</a>
 
 <div class="content">
-    <agm-map *ngIf="!loading"  [latitude] = "4.70551625403494" [longitude] = "-74.03951118339762" [zoom] = "18" (mapClick) = "coors($event)" (boundsChange)="getMarkers($event)">
-        <agm-marker [iconUrl] = "{  url: './assets/images/'+e.toolkit.vehicle+'.png' }" [latitude]="+e.lat" [longitude] ="+e.lng" *ngFor="let e of markers;"></agm-marker>
+    <agm-map [latitude]="4.70551625403494" [longitude]="-74.03951118339762" [zoom]="18" (mapClick)="coors($event)" (boundsChange)="getMarkers($event)">
+        <agm-marker *ngFor="let e of markers;" [iconUrl]="{  url: './assets/images/'+e.toolkit.vehicle+'.png' }" [latitude]="+e.lat" [longitude]="+e.lng"></agm-marker>
     </agm-map>
 </div>
 

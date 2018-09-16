@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { storeKeeperService } from './services/storekeepers.service';
 import { OrderService } from './services/orders.service';
 
@@ -10,32 +9,30 @@ import { OrderService } from './services/orders.service';
   styleUrls: ['./app.component.css'],
   providers: [storeKeeperService, OrderService ]
 })
+
 export class AppComponent {
   markers = [];
-  orders = [];
+  ordersType = '';
+  vehicleType = '';
+  loading = false;
   mainSelect = true;
-  loading = false
   resetButtom = false;
   vehicleSelect = false;
   orderTypeSelect = false;
-  vehicleType = ''
-  ordersType = ''
-  url = {  url: './assets/images/1.png' }
-  coordinates = { north :'', south :'', east :'', west :'' }
-
+  coordinates = {
+    north :'',
+    south :'',
+    east :'',
+    west :''
+  }
 
 
   constructor(
-    private http: HttpClient,
     private storeKeeperService: storeKeeperService,
     private OrderService: OrderService,
 
-
     ) { }
 
-  ngOnInit() {
-
-  }
 
    showFilter(e){
     switch(e) {
@@ -43,20 +40,15 @@ export class AppComponent {
           break;
       case '2': this.orderTypeSelect = true, this.mainSelect = false, this.resetButtom = true;
           break;
-      case 3: console.log('Call function')
+      case '3': this.ordersSaturation();
           break;
-      case 4: console.log('Call function')
+      case '4': this.vehiclesSaturation();
           break;
       default: console.log('err',e)
     }
   }
 
 
-
-  coors(coors){
-    console.log(coors)
-
-  }
 
   async getMarkers(coordinates){
     if(!this.resetButtom){
@@ -83,26 +75,25 @@ export class AppComponent {
   }
 
   resetFilter(){
-    this.resetButtom = false;
-    this.mainSelect = true;
-    this.orderTypeSelect = false;
-    this.vehicleSelect = false;
     this.vehicleType = '';
     this.ordersType = '';
-
+    this.mainSelect = true;
+    this.resetButtom = false;
+    this.vehicleSelect = false;
+    this.orderTypeSelect = false;
 
   }
 
-  async getOrders(){
-    const orders = await this.OrderService.getOrders();
-    this.orders = orders.data
+  async getOrders(coordinates){
+    const orders = await this.OrderService.getOrders(coordinates);
+    this.markers = orders.data;
 
   }
 
   async getStorekeepersByVehicle(type){
     this.markers = [];
-    this.vehicleType = type
     const store_keepers = await this.storeKeeperService.getStorekeepersByVehicle({type, coordinates : this.coordinates});
+    this.vehicleType = type
     this.markers = store_keepers.data;
 
   }
@@ -111,6 +102,18 @@ export class AppComponent {
     const orders = await this.OrderService.getOrdersByType({type, coordinates : this.coordinates});
     this.markers = orders.data
     this.ordersType = type;
+
+  }
+
+  async ordersSaturation(){
+    console.log('ordersSaturation');
+
+  }
+
+  async vehiclesSaturation(){
+    console.log('vehiclesSaturation');
+
+
   }
 
 }

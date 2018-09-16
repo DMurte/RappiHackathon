@@ -4,14 +4,13 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class OrderService {
-  endPoint = 'http://localhost:3678/api/orders/'
+  endPoint = 'http://localhost:3678/api/orders/';
 
   constructor( private http: HttpClient ) { }
 
-
-  async getOrders() {
+  async getOrders(coordinates) {
     const url = `${this.endPoint}`
-    return this.http.get<any>(url).toPromise();
+    return this.http.post<any>(url, coordinates).toPromise();
 
   }
 
@@ -20,9 +19,6 @@ export class OrderService {
     return this.http.post<any>(url, params).toPromise();
 
   }
-
-
-
 }
 
 

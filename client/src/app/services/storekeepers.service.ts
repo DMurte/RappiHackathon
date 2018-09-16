@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class storeKeeperService {
-  endPoint = 'http://localhost:3678/api/storekeepers/'
+  endPoint = 'http://localhost:3678/api/storekeepers/';
 
   constructor( private http: HttpClient ) { }
 
@@ -20,7 +20,5 @@ export class storeKeeperService {
     return this.http.post<any>(url, params).toPromise();
 
   }
-
-
 
 }

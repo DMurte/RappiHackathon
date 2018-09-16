@@ -2,9 +2,7 @@ agm-map {
   height: 700px;
   width: 1150px;
 
-
 }
-
 
 .content {
   position: absolute;
@@ -18,7 +16,7 @@ agm-map {
 .browser-default {
   width: 650px;
   left: 50%;
-  top: 6%;
+  top: 5%;
   position: absolute;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
